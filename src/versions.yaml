@@ -1,0 +1,6 @@
+---
+
+pm8s-operator:
+  description: The pm8s operator
+  chart: 0.1.16
+  application: 0.1.16
