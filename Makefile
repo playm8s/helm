@@ -8,7 +8,6 @@ clean:
 	cd src/pm8s-operator && make clean
 
 git-setup:
-	git config --global --add safe.directory .
 	git fetch
 	git pull
 
