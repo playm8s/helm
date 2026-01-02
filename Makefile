@@ -23,6 +23,7 @@ operator:
 	cp -rv src/pm8s-operator/dist/charts/pm8s-operator charts/
 	bash set-version.sh pm8s-operator
 	git add --verbose charts/**
+	git stash push -- src/versions.yaml
 	git stash push -- charts
 	git fetch
 	git switch gh-pages
