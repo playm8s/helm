@@ -19,7 +19,7 @@ helmcharts: operator
 operator:
 	git switch main
 	cd src/pm8s-operator && make helmcharts
-	mkdir -pv /tmp/charts/pm8s-operator
+	mkdir -pv /tmp/charts
 	mv src/pm8s-operator/dist/charts/pm8s-operator/. /tmp/charts/
 	bash set-version.sh pm8s-operator /tmp/charts
 	git switch gh-pages
