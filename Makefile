@@ -15,8 +15,9 @@ git-setup:
 helmcharts: operator
 
 operator:
+	mkdir -pv charts/pm8s-operator
 	cd src/pm8s-operator && make helmcharts
-	cp -rv src/pm8s-operator/dist/charts/pm8s-operator/. charts/
+	cp -rv src/pm8s-operator/dist/charts/pm8s-operator/. charts/pm8s-operator
 	bash set-version.sh pm8s-operator
 	git add --verbose -f charts/pm8s-operator/**
 	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' /tmp/versions.yaml)"
