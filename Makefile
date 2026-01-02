@@ -18,20 +18,18 @@ helmcharts: operator
 
 operator:
 	git switch main
-	mkdir -pv charts
 	cd src/pm8s-operator && make helmcharts
-	cp -rv src/pm8s-operator/dist/charts/pm8s-operator charts/
-	bash set-version.sh pm8s-operator
-	git add --verbose charts/pm8s-operator
-	git add --verbose src/versions.yaml
-	git stash push -- src/versions.yaml
-	git stash push -- charts
+	mkdir -pv /tmp/charts/pm8s-operator
+	mv src/pm8s-operator/dist/charts/pm8s-operator /tmp/charts/
+	bash set-version.sh pm8s-operator /tmp/charts
 	git switch gh-pages
-	git merge --squash --strategy-option=ours stash
-	git add charts/pm8s-operator/*
+	mkdir -pv charts
+	mv /tmp/charts/pm8s-operator charts/
+	git add charts/pm8s-operator/**
 	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' src/versions.yaml)"
 
 git-finalize:
 	chown -R 1001:1001 .
+	git switch gh-pages
 	git push
 	git switch main
