@@ -45,8 +45,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.7.0
         with:
           charts_dir: charts
-          skip_upload: false
-          skip_existing: false
           mark_as_latest: true
           pages_branch: gh-pages
         env:
