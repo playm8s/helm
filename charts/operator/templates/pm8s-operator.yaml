@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "operator.fullname" . }}-pm8s-operator
+  labels:
+    pm8s.io/operator: "true"
+  {{- include "operator.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.pm8SOperator.replicas }}
+  revisionHistoryLimit: {{ .Values.pm8SOperator.revisionHistoryLimit }}
+  strategy:
+    rollingUpdate:
+      maxSurge: {{ .Values.pm8SOperator.strategy.rollingUpdate.maxSurge | quote }}
+      maxUnavailable: {{ .Values.pm8SOperator.strategy.rollingUpdate.maxUnavailable
+        | quote }}
+    type: {{ .Values.pm8SOperator.strategy.type | quote }}
+  selector:
+    matchLabels: null
+    {{- include "operator.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        pm8s.io/operator: "true"
+      {{- include "operator.selectorLabels" . | nindent 8 }}
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.pm8SOperator.main.image.repository }}:{{ .Values.pm8SOperator.main.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.pm8SOperator.main.imagePullPolicy }}
+        name: main
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        resources: {{- toYaml .Values.pm8SOperator.main.resources | nindent 10 }}
+        securityContext: {{- toYaml .Values.pm8SOperator.main.containerSecurityContext
+          | nindent 10 }}
+      dnsPolicy: ClusterFirst
+      nodeSelector: {{- toYaml .Values.pm8SOperator.nodeSelector | nindent 8 }}
+      restartPolicy: Always
+      securityContext: {{- toYaml .Values.pm8SOperator.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ include "operator.serviceAccountName" . }}
+      setHostnameAsFQDN: false
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
+      tolerations: {{- toYaml .Values.pm8SOperator.tolerations | nindent 8 }}
+      topologySpreadConstraints: {{- toYaml .Values.pm8SOperator.topologySpreadConstraints
+        | nindent 8 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "operator.fullname" . }}-pm8s-operator-service
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.pm8SOperatorService.type }}
+  selector:
+    pm8s.io/operator: "true"
+    {{- include "operator.selectorLabels" . | nindent 4 }}
+  ports:
+  {{- .Values.pm8SOperatorService.ports | toYaml | nindent 2 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "operator.fullname" . }}-pm8s-operator-role
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  - deletecollection
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "operator.fullname" . }}-rolebindingc87b1a85997e4689099f1679e08c2fa31738727ca7
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: '{{ include "operator.fullname" . }}-pm8s-operator-role'
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "operator.serviceAccountName" . }}'
+  namespace: '{{ .Release.Namespace }}'
+---
+{{ if .Values.serviceAccount.create }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "operator.serviceAccountName" . }}
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+{{- end }}
