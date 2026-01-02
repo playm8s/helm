@@ -81,6 +81,12 @@ jobs:
             --env="GITHUB_ACTOR=${GITHUB_ACTOR}" \
             "${{ env.REGISTRY }}/${{ github.repository }}:sha-${{ github.sha }}" \
             -c "cd /work && make || echo FAILED"
+    
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: charts
+          path: charts
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
