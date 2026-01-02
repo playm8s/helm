@@ -30,8 +30,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{secrets.GH_PAT}}
 
       - name: Configure Git
         run: |
@@ -86,9 +84,5 @@ jobs:
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
-        with:
-          mark_as_latest: true
-          skip_existing: false
-          pages_branch: gh-pages
         env:
-          CR_TOKEN: "${{ secrets.GH_PAT }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
