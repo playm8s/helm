@@ -1,5 +1,6 @@
 .DS_Store
 *
+!CNAME
 !LICENSE
 !README.md
 !charts/
