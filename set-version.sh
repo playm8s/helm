@@ -17,5 +17,4 @@ yq eval --inplace ".description = \"$DESCRIPTION\"" "charts/${CHART_NAME}/Chart.
 yq eval --inplace ".version = \"$CHART_VERSION\"" "charts/${CHART_NAME}/Chart.yaml"
 yq eval --inplace ".appVersion = \"$APP_VERSION\"" "charts/${CHART_NAME}/Chart.yaml"
 
-
 echo "Updated Chart.yaml for ${CHART_NAME} with chart version: $CHART_VERSION and app version: $APP_VERSION"

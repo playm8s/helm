@@ -83,7 +83,7 @@ jobs:
             --env="GITHUB_ACTOR=${GITHUB_ACTOR}" \
             "${{ env.REGISTRY }}/${{ github.repository }}:sha-${{ github.sha }}" \
             -c "cd /work && make || echo FAILED"
-    
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
