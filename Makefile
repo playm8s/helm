@@ -28,6 +28,7 @@ operator:
 	mv /tmp/charts/pm8s-operator charts/pm8s-operator
 	git add --verbose -f charts/pm8s-operator/**
 	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' src/versions.yaml)"
+	git switch main
 
 git-finalize:
 	chown -R 1001:1001 .
