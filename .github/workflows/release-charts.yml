@@ -32,7 +32,7 @@ jobs:
           token: "${{ secrets.GH_PAT }}"
           ref: gh-pages
           clean: true
-          fetch-depth: 1
+          fetch-depth: 0
           fetch-tags: true
           set-safe-directory: true
 
