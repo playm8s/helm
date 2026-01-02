@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  operator:
+  - apiVersion: v2
+    appVersion: 0.1.55
+    created: "2026-01-02T23:35:53.366813573Z"
+    description: The pm8s operator
+    digest: f7526b33f9494bd7548288c8b31e3a6a4013c1022cb1b4e332d320701ccd833f
+    name: operator
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/operator-0.1.55/operator-0.1.55.tgz
+    version: 0.1.55
   pm8s-operator:
   - apiVersion: v2
     appVersion: 0.1.52
@@ -11,4 +22,4 @@ entries:
     urls:
     - https://github.com/playm8s/helm/releases/download/pm8s-operator-0.1.52/pm8s-operator-0.1.52.tgz
     version: 0.1.52
-generated: "2026-01-02T23:22:15.572731224Z"
+generated: "2026-01-02T23:35:53.366818733Z"
