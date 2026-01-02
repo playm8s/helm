@@ -85,8 +85,10 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: charts
-          path: "${{ github.workspace }}/charts"
+          name: artifacts
+          path: |
+            "${{ github.workspace }}/charts"
+            "${{ github.workspace }}/src/**/dist/manifests"
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
