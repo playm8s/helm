@@ -2,5 +2,5 @@
 
 pm8s-operator:
   description: The pm8s operator
-  chart: 0.1.21
-  application: 0.1.21
+  chart: 0.1.22
+  application: 0.1.22
