@@ -35,6 +35,4 @@ operator:
 
 git-finalize:
 	chown -R 1001:1001 .
-	git switch gh-pages
-	git push
-	git switch main
+
