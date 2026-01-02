@@ -23,7 +23,7 @@ operator:
 	bash set-version.sh pm8s-operator /tmp/charts /tmp/versions.yaml
 	git switch gh-pages
 	rm -rf charts/pm8s-operator
-	cp -rv /tmp/charts/pm8s-operator charts/
+	cp -rv /tmp/charts/pm8s-operator charts/pm8s-operator
 	echo "git diff:"
 	git diff
 	git add --verbose -f charts/pm8s-operator/**
