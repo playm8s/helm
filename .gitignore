@@ -1,0 +1,6 @@
+.DS_Store
+*
+!LICENSE
+!README.md
+!charts/
+!index.yaml
