@@ -28,13 +28,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Configure Git
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config -global user.name "$GITHUB_ACTOR"
+          git config -global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GH_PAT }}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -87,12 +89,10 @@ jobs:
         with:
           name: artifacts
           path: |
-            "${{ github.workspace }}/charts"
-            "${{ github.workspace }}/src/**/dist/manifests"
+            "charts"
+            "src/**/dist/manifests"
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
-        with:
-          packages_with_index: true
         env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_TOKEN: "${{ secrets.GH_PAT }}"
