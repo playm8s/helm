@@ -9,19 +9,29 @@ clean:
 
 git-setup:
 	git config --global --add safe.directory .
-	git config user.name "${GITHUB_ACTOR}"
-	git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+	git fetch
+	git pull
 
 helmcharts: operator
 
 operator:
-	mkdir -pv charts/pm8s-operator
+	git switch main
 	cd src/pm8s-operator && make helmcharts
-	cp -rv src/pm8s-operator/dist/charts/pm8s-operator/. charts/pm8s-operator
-	bash set-version.sh pm8s-operator
+	mkdir -pv /tmp/charts
+	mv src/pm8s-operator/dist/charts/pm8s-operator /tmp/charts/pm8s-operator
+	cp src/versions.yaml /tmp
+	bash set-version.sh pm8s-operator /tmp/charts /tmp/versions.yaml
+	git switch gh-pages
+	rm -rf charts/pm8s-operator
+	mv /tmp/charts/pm8s-operator charts/pm8s-operator
+	echo "git diff:"
+	git diff
 	git add --verbose -f charts/pm8s-operator/**
-	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' src/versions.yaml)"
+	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' /tmp/versions.yaml)"
+	git switch main
 
 git-finalize:
 	chown -R 1001:1001 .
+	git switch gh-pages
 	git push
+	git switch main
