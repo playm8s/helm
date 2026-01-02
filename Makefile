@@ -22,6 +22,7 @@ operator:
 	cd src/pm8s-operator && make helmcharts
 	cp -rv src/pm8s-operator/dist/charts/pm8s-operator charts/
 	bash set-version.sh pm8s-operator
+	git add -r charts
 	git stash push -- charts
 	git fetch
 	git switch gh-pages
