@@ -21,13 +21,14 @@ operator:
 	cd src/pm8s-operator && make helmcharts
 	mkdir -pv /tmp/charts
 	mv src/pm8s-operator/dist/charts/pm8s-operator /tmp/charts/pm8s-operator
+	cp src/versions.yaml /tmp
 	bash set-version.sh pm8s-operator /tmp/charts
 	git switch gh-pages
 	mkdir -pv charts
 	rm -rf charts/pm8s-operator
 	mv /tmp/charts/pm8s-operator charts/pm8s-operator
 	git add --verbose -f charts/pm8s-operator/**
-	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' src/versions.yaml)"
+	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' /tmp/versions.yaml)"
 	git switch main
 
 git-finalize:
