@@ -17,14 +17,16 @@ git-setup:
 helmcharts: operator
 
 operator:
-	git fetch
-	git switch gh-pages
-	git pull
+	git switch main
 	mkdir -pv charts
 	cd src/pm8s-operator && make helmcharts
 	cp -rv src/pm8s-operator/dist/charts/pm8s-operator charts/
-	touch charts/pm8s-operator/.helmignore
 	bash set-version.sh pm8s-operator
+	git stash push -- charts
+	git fetch
+	git switch gh-pages
+	git pull
+	git stash apply
 	git add -f charts/pm8s-operator/*
 	git commit -am "Build helm chart for pm8s-operator version $$(yq eval '.pm8s-operator.chart' src/versions.yaml)"
 
