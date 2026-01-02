@@ -5,7 +5,7 @@ all: clean git-setup helmcharts git-finalize
 
 clean:
 	rm -rf charts
-	cd src/pm8s-operator && make clean
+	cd src/operator && make clean
 
 git-setup:
 	git config --global --add safe.directory .
@@ -35,4 +35,3 @@ operator:
 
 git-finalize:
 	chown -R 1001:1001 .
-
