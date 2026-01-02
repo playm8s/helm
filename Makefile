@@ -8,6 +8,9 @@ clean:
 	cd src/pm8s-operator && make clean
 
 git-setup:
+	git config --global --add safe.directory .
+	git config user.name "${GITHUB_ACTOR}"
+  git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 	git fetch
 	git pull
 
