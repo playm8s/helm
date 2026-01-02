@@ -20,4 +20,4 @@ operator-manifests:
 
 operator-helmify: operator-manifests
 	mkdir -pv dist/charts
-	cd dist/charts && helmify -r -v -f ../manifests/operator pm8s-operator
+	cd dist/charts && helmify -r -v -f ../manifests/operator operator
