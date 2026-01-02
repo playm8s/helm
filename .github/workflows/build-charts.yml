@@ -86,9 +86,11 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: charts
-          path: charts
+          path: "${{ github.workspace }}/charts"
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
+        with:
+          packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

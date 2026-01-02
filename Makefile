@@ -17,4 +17,4 @@ operator:
 	bash set-version.sh pm8s-operator
 
 finalize:
-	chown -R 1001:1001 .
+	chown -R 1001:1001 charts/
