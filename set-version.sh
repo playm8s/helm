@@ -6,12 +6,13 @@ SCRIPT_DIR=$(cd "$DIRNAME" || exit 1; pwd)
 cd "$SCRIPT_DIR" || exit 1
 
 CHART_NAME=$1
-CHART_DIR="${$2:-"/tmp/charts"}"
+CHART_DIR="${$2:-"./charts"}"
+VERSIONS_SRC="${$3:-"./src/versions.yaml"}"
 
 # Read versions from versions.yaml
-DESCRIPTION=$(yq eval ".${CHART_NAME}.description" src/versions.yaml)
-CHART_VERSION=$(yq eval ".${CHART_NAME}.chart" src/versions.yaml)
-APP_VERSION=$(yq eval ".${CHART_NAME}.application" src/versions.yaml)
+DESCRIPTION=$(yq eval ".${CHART_NAME}.description" $VERSIONS_SRC)
+CHART_VERSION=$(yq eval ".${CHART_NAME}.chart" $VERSIONS_SRC)
+APP_VERSION=$(yq eval ".${CHART_NAME}.application" $VERSIONS_SRC)
 
 # Update Chart.yaml with the new versions
 yq eval --inplace ".description = \"$DESCRIPTION\"" "$CHART_DIR/${CHART_NAME}/Chart.yaml"
