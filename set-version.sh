@@ -6,8 +6,8 @@ SCRIPT_DIR=$(cd "$DIRNAME" || exit 1; pwd)
 cd "$SCRIPT_DIR" || exit 1
 
 CHART_NAME=$1
-CHART_DIR="${$2:-"./charts"}"
-VERSIONS_SRC="${$3:-"./src/versions.yaml"}"
+CHART_DIR="./charts"
+VERSIONS_SRC="./src/versions.yaml"
 
 # Read versions from versions.yaml
 DESCRIPTION=$(yq eval ".${CHART_NAME}.description" $VERSIONS_SRC)
