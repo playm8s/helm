@@ -91,3 +91,10 @@ jobs:
 
           echo "pushing gh-pages branch"
           git switch gh-pages && git push
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: output
+          path: |
+            src/**/dist
