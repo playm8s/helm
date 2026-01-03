@@ -7,6 +7,8 @@ const suffix: string = '-operator.yaml';
 
 const namespace: string = 'pm8s-system';
 
+const image: string = 'ghcr.io/playm8s/operator:latest';
+
 const httpApiPort: number = 9000;
 
 export class Playm8sOperator extends Chart {
@@ -20,6 +22,21 @@ export class Playm8sOperator extends Chart {
   ) {
     super(scope, id, props);
 
+    const operatorRole = new kplus.Role(this, 'operator-role');
+
+    operatorRole.allowReadWrite(kplus.ApiResource.DEPLOYMENTS);
+    const serviceAccount = new kplus.ServiceAccount(this, 'operator-service-account');
+
+    const roleBinding = new kplus.RoleBinding(this, 'operator-role-binding', {
+      metadata: {
+        name: 'pm8s-operator-rolebinding',
+        namespace: namespace,
+      },
+      role: operatorRole,
+    });
+
+    roleBinding.addSubjects(serviceAccount);
+
     const operatorDeployment = new kplus.Deployment(this, 'operator', {
       metadata: {
         labels: {
@@ -27,10 +44,11 @@ export class Playm8sOperator extends Chart {
         },
       },
       automountServiceAccountToken: true,
+      serviceAccount: serviceAccount,
       select: true,
       containers: [
         {
-          image: 'ghcr.io/playm8s/operator:latest',
+          image: image,
           ports: [
             {
               name: 'http',
@@ -52,21 +70,6 @@ export class Playm8sOperator extends Chart {
       ],
       serviceType: kplus.ServiceType.CLUSTER_IP,
     });
-
-    const operatorRole = new kplus.Role(this, 'operator-role');
-
-    operatorRole.allowReadWrite(kplus.ApiResource.DEPLOYMENTS);
-    const serviceAccount = new kplus.ServiceAccount(this, 'operator-service-account');
-
-    const roleBinding = new kplus.RoleBinding(this, 'operator-role-binding', {
-      metadata: {
-        name: 'pm8s-operator-rolebinding',
-        namespace: namespace,
-      },
-      role: operatorRole,
-    });
-
-    roleBinding.addSubjects(serviceAccount)
   }
 }
 
