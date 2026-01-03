@@ -1,3 +1,53 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "operator.fullname" . }}-role
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  - deletecollection
+---
+{{ if .Values.serviceAccount.create }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "operator.serviceAccountName" . }}
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+{{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "operator.fullname" . }}-rolebinding
+  labels:
+  {{- include "operator.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: '{{ include "operator.fullname" . }}-role'
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "operator.serviceAccountName" . }}'
+  namespace: '{{ .Release.Namespace }}'
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -54,63 +104,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "operator.fullname" . }}-pm8s-operator-service
+  name: {{ include "operator.fullname" . }}-service
   labels:
   {{- include "operator.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.pm8SOperatorService.type }}
+  type: {{ .Values.service.type }}
   selector:
     pm8s.io/operator: "true"
     {{- include "operator.selectorLabels" . | nindent 4 }}
   ports:
-  {{- .Values.pm8SOperatorService.ports | toYaml | nindent 2 }}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: {{ include "operator.fullname" . }}-pm8s-operator-role
-  labels:
-  {{- include "operator.labels" . | nindent 4 }}
-rules:
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-  - deletecollection
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: {{ include "operator.fullname" . }}-rolebindingc87b1a85997e4689099f1679e08c2fa31738727ca7
-  labels:
-  {{- include "operator.labels" . | nindent 4 }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: '{{ include "operator.fullname" . }}-pm8s-operator-role'
-subjects:
-- kind: ServiceAccount
-  name: '{{ include "operator.serviceAccountName" . }}'
-  namespace: '{{ .Release.Namespace }}'
----
-{{ if .Values.serviceAccount.create }}
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: {{ include "operator.serviceAccountName" . }}
-  labels:
-  {{- include "operator.labels" . | nindent 4 }}
-  {{- with .Values.serviceAccount.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
-{{- end }}
+  {{- .Values.service.ports | toYaml | nindent 2 }}

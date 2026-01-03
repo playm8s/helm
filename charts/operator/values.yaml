@@ -30,7 +30,7 @@ pm8SOperator:
     type: RollingUpdate
   tolerations: []
   topologySpreadConstraints: []
-pm8SOperatorService:
+service:
   ports:
   - port: 9000
     targetPort: 9000
