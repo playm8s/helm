@@ -1,7 +1,7 @@
-# Helm
+# PlayM8s Helm Charts
 
-Helm charts for the pm8s ecosystem
+Helm Charts for the PlayM8s Ecosystem
 
-Chart         | Chart | Values
----           | ---     | ---
-operator | [Chart.yaml](https://helm.pm8s.io/charts/operator/Chart.yaml) | [values.yaml](https://helm.pm8s.io/charts/operator/values.yaml)
+Chart         | Chart                                                         | Values
+---           | ---                                                           | ---
+operator      | [Chart.yaml](https://helm.pm8s.io/charts/operator/Chart.yaml) | [values.yaml](https://helm.pm8s.io/charts/operator/values.yaml)
