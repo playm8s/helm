@@ -1,7 +1,7 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-all: clean git-setup helmcharts git-finalize
+all: clean git-setup helmcharts finalize
 
 clean:
 	rm -rf charts
@@ -33,5 +33,5 @@ operator:
 	git commit -am "Build helm chart for pm8s/operator version $$(yq eval '.operator.chart' /tmp/versions.yaml)"
 	git switch main
 
-git-finalize:
+finalize:
 	chown -R 1001:1001 .

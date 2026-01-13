@@ -2,5 +2,5 @@
 
 operator:
   description: The PlayM8s Operator
-  chart: 0.2.0
-  application: 0.2.0
+  chart: 0.2.1
+  application: 0.2.1

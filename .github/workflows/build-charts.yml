@@ -88,13 +88,5 @@ jobs:
             --env="GITHUB_ACTOR=${GITHUB_ACTOR}" \
             "${{ env.REGISTRY }}/${{ github.repository }}:sha-${{ github.sha }}" \
             -c "cd /work && make || echo FAILED"
-
           echo "pushing gh-pages branch"
           git switch gh-pages && git push
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v6
-        with:
-          name: output
-          path: |
-            src/**/dist
