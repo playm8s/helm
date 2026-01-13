@@ -25,7 +25,7 @@ operator-manifests:
 operator-helmify: operator-manifests
 	mkdir -pv dist/charts
 	cd dist/charts && helmify -r -v -f ../manifests/operator operator
-	find dist/charts -type f -exec sed -i '' 's/pm8SOperator/pm8sOperator/g' {} +
+	find dist/charts -type f -exec sed -i 's/pm8SOperator/pm8sOperator/g' {} +
 
 git-finalize:
 	chown -R 1001:1001 .
