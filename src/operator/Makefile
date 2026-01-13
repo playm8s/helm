@@ -1,7 +1,7 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-all: clean npm-install helmcharts
+all: clean helmcharts
 
 clean:
 	rm -rf dist
@@ -11,7 +11,7 @@ clean:
 npm-install:
 	npm install
 
-helmcharts: operator-helmify
+helmcharts: operator-manifests operator-helmify
 
 operator-manifests:
 	npm install && cd src && npx tsc --module nodenext --lib es2024 playm8s-operator.ts && node playm8s-operator.js
@@ -21,3 +21,4 @@ operator-manifests:
 operator-helmify: operator-manifests
 	mkdir -pv dist/charts
 	cd dist/charts && helmify -r -v -f ../manifests/operator operator
+	find dist/charts -type f -exec sed -i '' 's/pm8SOperator/pm8sOperator/g' {} +
