@@ -27,5 +27,5 @@ operator-helmify: operator-manifests
 	cd dist/charts && helmify -r -v -f ../manifests/operator operator
 	find dist/charts -type f -exec sed -i 's/pm8SOperator/pm8sOperator/g' {} +
 
-git-finalize:
+finalize:
 	chown -R 1001:1001 .
