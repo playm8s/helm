@@ -1,7 +1,10 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-all: clean git-setup helmcharts finalize
+all:
+	echo "no-op"
+
+ci: clean git-setup helmcharts finalize
 
 clean:
 	rm -rf charts
@@ -18,7 +21,7 @@ helmcharts: operator
 
 operator:
 	git switch main
-	cd src/operator && make helmcharts
+	cd src/operator && make ci
 	mkdir -pv /tmp/charts
 	mv src/operator/dist/charts/operator /tmp/charts/operator
 	cp src/versions.yaml /tmp

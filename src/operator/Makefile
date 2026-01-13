@@ -1,7 +1,9 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-all: clean manifests helmcharts finalize
+all: clean manifests helmcharts
+
+ci: clean manifests helmcharts finalize
 
 clean:
 	rm -rf dist
