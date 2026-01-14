@@ -1,0 +1,91 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "crds.fullname" . }}-role
+  labels:
+  {{- include "crds.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  - deletecollection
+---
+{{ if .Values.serviceAccount.create }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "crds.serviceAccountName" . }}
+  labels:
+  {{- include "crds.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+{{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "crds.fullname" . }}-rolebinding
+  labels:
+  {{- include "crds.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: '{{ include "crds.fullname" . }}-role'
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "crds.serviceAccountName" . }}'
+  namespace: '{{ .Release.Namespace }}'
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "crds.fullname" . }}-pm8s-crd-job
+  labels:
+    pm8s.io/crds: "true"
+  {{- include "crds.labels" . | nindent 4 }}
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels:
+        pm8s.io/crds: "true"
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: KUBE_IN_CLUSTER_CONFIG
+          value: {{ quote .Values.pm8sCrdJob.main.env.kubeInClusterConfig }}
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.pm8sCrdJob.main.image.repository }}:{{ .Values.pm8sCrdJob.main.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.pm8sCrdJob.main.imagePullPolicy }}
+        name: main
+        resources: {{- toYaml .Values.pm8sCrdJob.main.resources | nindent 10 }}
+        securityContext: {{- toYaml .Values.pm8sCrdJob.main.containerSecurityContext
+          | nindent 10 }}
+      dnsPolicy: ClusterFirst
+      nodeSelector: {{- toYaml .Values.pm8sCrdJob.nodeSelector | nindent 8 }}
+      restartPolicy: Never
+      securityContext: {{- toYaml .Values.pm8sCrdJob.podSecurityContext | nindent
+        8 }}
+      serviceAccountName: {{ include "crds.serviceAccountName" . }}
+      setHostnameAsFQDN: false
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
+      tolerations: {{- toYaml .Values.pm8sCrdJob.tolerations | nindent 8 }}
+      topologySpreadConstraints: {{- toYaml .Values.pm8sCrdJob.topologySpreadConstraints
+        | nindent 8 }}
+  ttlSecondsAfterFinished: 600
