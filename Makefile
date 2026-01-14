@@ -19,7 +19,7 @@ git-setup:
 	git fetch
 	git pull
 
-ci-helmcharts: ci-operator
+ci-helmcharts: ci-operator ci-crds
 
 # pm8s/operator
 ci-operator:
@@ -33,10 +33,8 @@ ci-operator:
 	rm -rf charts/operator
 	mkdir -pv charts/operator
 	cp -rv /tmp/charts/operator/. charts/operator/.
-	echo "git diff:"
-	git diff
 	git add --verbose -f charts/operator/**
-	git commit -am "Build helm chart for pm8s/operator version $$(yq eval '.operator.chart' /tmp/versions.yaml)"
+	git diff --quiet && git diff --staged --quiet || git commit -am "Build helm chart for pm8s/operator version $$(yq eval '.operator.chart' /tmp/versions.yaml)"
 	git switch main
 
 operator-manifests: npm-install tsc
@@ -60,10 +58,8 @@ ci-crds:
 	rm -rf charts/crds
 	mkdir -pv charts/crds
 	cp -rv /tmp/charts/crds/. charts/crds/.
-	echo "git diff:"
-	git diff
 	git add --verbose -f charts/crds/**
-	git commit -am "Build helm chart for pm8s/crds version $$(yq eval '.crds.chart' /tmp/versions.yaml)"
+	git diff --quiet && git diff --staged --quiet || git commit -am "Build helm chart for pm8s/crds version $$(yq eval '.crds.chart' /tmp/versions.yaml)"
 	git switch main
 
 crds-manifests: npm-install tsc
