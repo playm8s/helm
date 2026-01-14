@@ -1,3 +1,3 @@
-.DS_Store
-.cr-release-packages
-charts/
+*.js
+node_modules
+dist

@@ -6,7 +6,7 @@
       "es2024"
     ],
     "module": "nodenext",
-    "outDir": "./bin",
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "rootDir": "./src",
     "strict": false,

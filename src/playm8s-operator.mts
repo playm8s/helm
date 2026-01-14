@@ -1,6 +1,6 @@
-import * as kplus from 'cdk8s-plus-33';
 import { Construct } from 'constructs';
-import { App, Chart, ChartProps } from 'cdk8s';
+import * as cdk8splus from 'cdk8s-plus-33';
+import * as cdk8s from 'cdk8s';
 
 const outdir: string = '../dist/manifests/operator';
 const suffix: string = '-operator.yaml';
@@ -11,33 +11,40 @@ const image: string = 'ghcr.io/playm8s/operator:latest';
 
 const httpApiPort: number = 9000;
 
-export class Playm8sOperator extends Chart {
+export class Playm8sOperator extends cdk8s.Chart {
   constructor(
     scope: Construct,
     id: string,
-    props: ChartProps = {
+    props: cdk8s.ChartProps = {
       disableResourceNameHashes: true,
       namespace: namespace,
     }
   ) {
     super(scope, id, props);
 
-    const operatorRole = new kplus.Role(this, 'operator-role');
+    const operatorRole = new cdk8splus.Role(this, 'operator-role');
 
-    operatorRole.allowReadWrite(kplus.ApiResource.DEPLOYMENTS);
-    const serviceAccount = new kplus.ServiceAccount(this, 'operator-service-account');
+    operatorRole.allowReadWrite(cdk8splus.ApiResource.DEPLOYMENTS);
+    const serviceAccount = new cdk8splus.ServiceAccount(
+      this,
+      'operator-service-account'
+    );
 
-    const roleBinding = new kplus.RoleBinding(this, 'operator-role-binding', {
-      metadata: {
-        name: 'pm8s-operator-rolebinding',
-        namespace: namespace,
-      },
-      role: operatorRole,
-    });
+    const roleBinding = new cdk8splus.RoleBinding(
+      this,
+      'operator-role-binding',
+      {
+        metadata: {
+          name: 'pm8s-operator-rolebinding',
+          namespace: namespace,
+        },
+        role: operatorRole,
+      }
+    );
 
     roleBinding.addSubjects(serviceAccount);
 
-    const operatorDeployment = new kplus.Deployment(this, 'operator', {
+    const operatorDeployment = new cdk8splus.Deployment(this, 'operator', {
       metadata: {
         labels: {
           'pm8s.io/operator': 'true',
@@ -52,7 +59,7 @@ export class Playm8sOperator extends Chart {
           ports: [
             {
               name: 'http',
-              protocol: kplus.Protocol.TCP,
+              protocol: cdk8splus.Protocol.TCP,
               number: httpApiPort,
             },
           ],
@@ -68,12 +75,12 @@ export class Playm8sOperator extends Chart {
           targetPort: httpApiPort,
         },
       ],
-      serviceType: kplus.ServiceType.CLUSTER_IP,
+      serviceType: cdk8splus.ServiceType.CLUSTER_IP,
     });
   }
 }
 
-const app = new App({
+const app = new cdk8s.App({
   outputFileExtension: suffix,
   outdir: outdir,
 });
