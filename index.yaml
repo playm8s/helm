@@ -1,6 +1,27 @@
 apiVersion: v1
 entries:
+  crds:
+  - apiVersion: v2
+    appVersion: 0.0.4
+    created: "2026-01-14T05:23:23.190228192Z"
+    description: The PlayM8s CRDs
+    digest: f10c97dcc01be69db8820646093cbf897251fa3e86e77933f26e95ef6721e520
+    name: crds
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/crds-0.0.4/crds-0.0.4.tgz
+    version: 0.0.4
   operator:
+  - apiVersion: v2
+    appVersion: 0.2.7
+    created: "2026-01-14T05:23:23.451658214Z"
+    description: The PlayM8s Operator
+    digest: 10d774927c82730501b9db1163dc36ce8c04509d224e52ec1c49564048a96f38
+    name: operator
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/operator-0.2.7/operator-0.2.7.tgz
+    version: 0.2.7
   - apiVersion: v2
     appVersion: 0.2.4
     created: "2026-01-13T00:50:14.78576559Z"
@@ -21,4 +42,4 @@ entries:
     urls:
     - https://github.com/playm8s/helm/releases/download/operator-0.1.57/operator-0.1.57.tgz
     version: 0.1.57
-generated: "2026-01-13T00:50:14.785778975Z"
+generated: "2026-01-14T05:23:23.451676188Z"
