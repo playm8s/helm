@@ -2,10 +2,10 @@
 
 operator:
   description: The PlayM8s Operator
-  chart: 0.2.6
-  application: 0.2.6
+  chart: 0.2.7
+  application: 0.2.7
 
 crds:
   description: The PlayM8s CRDs
-  chart: 0.0.3
-  application: 0.0.3
+  chart: 0.0.4
+  application: 0.0.4
