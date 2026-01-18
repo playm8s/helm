@@ -2,6 +2,8 @@ import { Construct } from 'constructs';
 import * as cdk8splus from 'cdk8s-plus-33';
 import * as cdk8s from 'cdk8s';
 
+import { pm8s } from '@playm8s/crds';
+
 const outdir: string = '../dist/manifests/operator';
 const suffix: string = '-operator.yaml';
 
@@ -24,7 +26,33 @@ export class Playm8sOperator extends cdk8s.Chart {
 
     const operatorRole = new cdk8splus.Role(this, 'operator-role');
 
-    operatorRole.allowReadWrite(cdk8splus.ApiResource.DEPLOYMENTS);
+    operatorRole.allowReadWrite(
+      cdk8splus.ApiResource.CONFIG_MAPS,
+      cdk8splus.ApiResource.CRON_JOBS,
+      cdk8splus.ApiResource.CUSTOM_RESOURCE_DEFINITIONS,
+      cdk8splus.ApiResource.DAEMON_SETS,
+      cdk8splus.ApiResource.DEPLOYMENTS,
+      cdk8splus.ApiResource.JOBS,
+      cdk8splus.ApiResource.LEASES,
+      cdk8splus.ApiResource.PERSISTENT_VOLUME_CLAIMS,
+      cdk8splus.ApiResource.PODS,
+      cdk8splus.ApiResource.REPLICA_SETS,
+      cdk8splus.ApiResource.SECRETS,
+      cdk8splus.ApiResource.SERVICES,
+      cdk8splus.ApiResource.STATEFUL_SETS,
+      cdk8splus.ApiResource.INGRESSES,
+      new pm8s.Gameserver.ApiResource,
+      new pm8s.GameserverBase.ApiResource,
+      new pm8s.GameserverOverlay.ApiResource,
+    );
+
+    operatorRole.allowRead(
+      cdk8splus.ApiResource.INGRESS_CLASSES,
+      cdk8splus.ApiResource.NAMESPACES,
+      cdk8splus.ApiResource.NODES,
+      cdk8splus.ApiResource.VOLUME_ATTACHMENTS,
+    );
+
     const serviceAccount = new cdk8splus.ServiceAccount(
       this,
       'operator-service-account'

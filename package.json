@@ -8,10 +8,11 @@
     "node": ">=24.0.0"
   },
   "scripts": {},
-  "devDependencies": {},
   "dependencies": {
+    "@playm8s/crds": "^0.4.68",
     "cdk8s": "^2.70.37",
     "cdk8s-plus-33": "^2.4.14",
+    "constructs": "^10.4.5",
     "typescript": "^5.9.3"
   }
 }

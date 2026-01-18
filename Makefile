@@ -73,3 +73,6 @@ crds-helmify: crds-manifests
 
 finalize:
 	chown -R 1001:1001 .
+
+update-libraries:
+	npm install --save @playm8s/crds@latest
