@@ -9,6 +9,7 @@ ci: git-setup ci-helmcharts finalize
 npm-install:
 	echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" | tee -a "${HOME}/.npmrc"
 	npm install
+	git reset --hard
 
 tsc:
 	npx tsc
