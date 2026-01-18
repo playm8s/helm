@@ -51,6 +51,8 @@ jobs:
 
       - name: Generate HelmCharts
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl -sSL https://github.com/arttor/helmify/releases/download/v0.4.19/helmify_Linux_x86_64.tar.gz \
             | sudo tar -xzv -C /usr/bin helmify
