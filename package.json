@@ -1,9 +1,8 @@
 {
-  "name": "playm8s-operator",
+  "name": "playm8s-helm",
   "version": "0.0.1",
-  "description": "the playm8s operator",
+  "description": "the playm8s helm charts",
   "keywords": [],
-  "main": "app/main.ts",
   "engines": {
     "node": ">=24.0.0"
   },
