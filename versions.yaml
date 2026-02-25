@@ -10,7 +10,7 @@ crds:
   chart: 0.0.4
   application: 0.0.4
 
-gameservers-csgo:
+gameserver-csgo:
   description: An example deployment of a CS:GO Server
   chart: 0.0.1
   application: 0.0.1

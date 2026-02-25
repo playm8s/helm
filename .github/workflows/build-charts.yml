@@ -57,5 +57,3 @@ jobs:
           curl -sSL https://github.com/arttor/helmify/releases/download/v0.4.19/helmify_Linux_x86_64.tar.gz \
             | sudo tar -xzv -C /usr/bin helmify
           make ci
-          echo "pushing gh-pages branch"
-          git switch gh-pages && git push

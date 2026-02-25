@@ -97,9 +97,16 @@ ci-gameserver-csgo:
 	git add --verbose -f charts/gameserver-csgo/**
 	git diff --quiet && git diff --staged --quiet || git commit -am "Build helm chart for pm8s/gameserver-csgo version $$(yq eval '.gameserver-csgo.chart' /tmp/versions.yaml)"
 	git switch main
+	cp -rv /tmp/charts/gameserver-csgo/. charts/gameserver-csgo/.
+	git add --verbose -f charts/gameserver-csgo/**
+	git diff --quiet && git diff --staged --quiet || git commit -am "Update helm chart for pm8s/gameserver-csgo version $$(yq eval '.gameserver-csgo.chart' /tmp/versions.yaml)"
 
 finalize:
 	chown -R 1001:1001 .
+	git switch main
+	git push
+	git switch gh-pages
+	git push
 
 update-libraries:
 	npm install --save @playm8s/crds@latest
