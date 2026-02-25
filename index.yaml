@@ -13,6 +13,16 @@ entries:
     version: 0.0.4
   gameserver-csgo:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2026-02-25T00:48:41.644381469Z"
+    description: An example deployment of a CS:GO Server
+    digest: 01142c715555479980742cf8888669792b41e693e27debf25bc265c483451bee
+    name: gameserver-csgo
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.0.2/gameserver-csgo-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2026-02-25T00:40:55.868668422Z"
     description: An example deployment of a CS:GO Server
@@ -63,4 +73,4 @@ entries:
     urls:
     - https://github.com/playm8s/helm/releases/download/operator-0.1.57/operator-0.1.57.tgz
     version: 0.1.57
-generated: "2026-02-25T00:40:55.868694541Z"
+generated: "2026-02-25T00:48:41.644394774Z"
