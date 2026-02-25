@@ -1,0 +1,8 @@
+apiVersion: pm8s.io/v1
+kind: Gameserver
+metadata:
+  name: {{ include "gameservers-csgo.fullname" . }}
+  labels:
+  {{- include "gameservers-csgo.labels" . | nindent 4 }}
+spec:
+{{- toYaml .Values.spec | nindent 2 }}
