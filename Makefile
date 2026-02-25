@@ -31,7 +31,7 @@ update-readme:
 	git diff --quiet && git diff --staged --quiet || git commit -am "Update README.md for commit $$(git rev-parse --short --verify main)"
 	git switch main
 
-ci-helmcharts: ci-operator ci-crds
+ci-helmcharts: ci-operator ci-crds ci-gameserver-csgo
 
 # pm8s/operator
 ci-operator:
