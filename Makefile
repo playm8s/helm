@@ -28,7 +28,7 @@ update-readme:
 	git switch gh-pages
 	cp -v /tmp/README.md README.md
 	git add --verbose README.md
-	git diff --quiet && git diff --staged --quiet || git commit -am "Update README.md for commit $$(git rev-parse --short --verify main)"
+	git diff --quiet && git diff --staged --quiet || git commit -m "Update README.md for commit $$(git rev-parse --short --verify main)"
 	git switch main
 
 ci-helmcharts: ci-operator ci-crds ci-gameserver-csgo
@@ -46,7 +46,7 @@ ci-operator:
 	mkdir -pv charts/operator
 	cp -rv /tmp/charts/operator/. charts/operator/.
 	git add --verbose -f charts/operator/**
-	git diff --quiet && git diff --staged --quiet || git commit -am "Build helm chart for pm8s/operator version $$(yq eval '.operator.chart' /tmp/versions.yaml)"
+	git diff --quiet && git diff --staged --quiet || git commit -m "Build helm chart for pm8s/operator version $$(yq eval '.operator.chart' /tmp/versions.yaml)"
 	git switch main
 
 operator-manifests: tsc
@@ -71,7 +71,7 @@ ci-crds:
 	mkdir -pv charts/crds
 	cp -rv /tmp/charts/crds/. charts/crds/.
 	git add --verbose -f charts/crds/**
-	git diff --quiet && git diff --staged --quiet || git commit -am "Build helm chart for pm8s/crds version $$(yq eval '.crds.chart' /tmp/versions.yaml)"
+	git diff --quiet && git diff --staged --quiet || git commit -m "Build helm chart for pm8s/crds version $$(yq eval '.crds.chart' /tmp/versions.yaml)"
 	git switch main
 
 crds-manifests: tsc
@@ -98,8 +98,8 @@ ci-gameserver-csgo:
 	git diff --quiet && git diff --staged --quiet || git commit -am "Build helm chart for pm8s/gameserver-csgo version $$(yq eval '.gameserver-csgo.chart' /tmp/versions.yaml)"
 	git switch main
 	cp -rv /tmp/charts/gameserver-csgo/. src/charts/gameserver-csgo/.
-	git add --verbose -f charts/gameserver-csgo/**
-	git diff --quiet && git diff --staged --quiet || git commit -am "Update helm chart for pm8s/gameserver-csgo version $$(yq eval '.gameserver-csgo.chart' /tmp/versions.yaml)"
+	git add --verbose -f src/charts/gameserver-csgo/**
+	git diff --quiet && git diff --staged --quiet || git commit -m "Update helm chart for pm8s/gameserver-csgo version $$(yq eval '.gameserver-csgo.chart' /tmp/versions.yaml)"
 
 finalize:
 	chown -R 1001:1001 .
