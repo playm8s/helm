@@ -4,12 +4,13 @@ SHELL = /usr/bin/env bash -o pipefail
 all:
 	echo "no-op"
 
-ci: git-setup npm-install-ci ci-helmcharts finalize
+ci: git-setup npm-install-ci update-readme ci-helmcharts finalize
 
 npm-install-ci:
 	echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" | tee -a "${HOME}/.npmrc"
 	git switch main
-	npm install
+	npm ci
+	git reset --hard
 
 tsc:
 	npx tsc
@@ -20,6 +21,15 @@ git-setup:
 	git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 	git fetch
 	git pull
+
+update-readme:
+	git switch main
+	cp README.md /tmp/README.md
+	git switch gh-pages
+	cp -v /tmp/README.md README.md
+	git add --verbose README.md
+	git diff --quiet && git diff --staged --quiet || git commit -am "Update README.md for commit $$(git rev-parse --short --verify main)"
+	git switch main
 
 ci-helmcharts: ci-operator ci-crds
 
@@ -77,7 +87,7 @@ crds-helmify: crds-manifests
 ci-gameserver-csgo:
 	git switch main
 	mkdir -pv /tmp/charts
-	mv dist/charts/gameserver-csgo /tmp/charts/gameserver-csgo
+	cp -r src/charts/gameserver-csgo /tmp/charts/gameserver-csgo
 	cp versions.yaml /tmp
 	bash set-version.sh gameserver-csgo /tmp/charts /tmp/versions.yaml
 	git switch gh-pages
