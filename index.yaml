@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   crds:
   - apiVersion: v2
+    appVersion: 0.5.1
+    created: "2026-03-16T23:43:02.777598302Z"
+    description: The PlayM8s CRDs
+    digest: 564fa7983695bdb1be861bb477cb4c786f1c0cda4919351d3df83c85757df4b8
+    name: crds
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/crds-0.5.1/crds-0.5.1.tgz
+    version: 0.5.1
+  - apiVersion: v2
     appVersion: 0.5.0
     created: "2026-03-16T23:41:59.2656794Z"
     description: The PlayM8s CRDs
@@ -22,6 +32,16 @@ entries:
     - https://github.com/playm8s/helm/releases/download/crds-0.0.4/crds-0.0.4.tgz
     version: 0.0.4
   gameserver-csgo:
+  - apiVersion: v2
+    appVersion: 0.5.1
+    created: "2026-03-16T23:43:02.910789849Z"
+    description: An example deployment of a CS:GO Server
+    digest: 17ffa1f4acff172bdf2cbe7dc4641161a52156d1cb2be77f157c6a3ea495034e
+    name: gameserver-csgo
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.5.1/gameserver-csgo-0.5.1.tgz
+    version: 0.5.1
   - apiVersion: v2
     appVersion: 0.5.0
     created: "2026-03-16T23:41:59.385621417Z"
@@ -63,6 +83,16 @@ entries:
     - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.0.1/gameserver-csgo-0.0.1.tgz
     version: 0.0.1
   operator:
+  - apiVersion: v2
+    appVersion: 0.5.1
+    created: "2026-03-16T23:43:03.043610771Z"
+    description: The PlayM8s Operator
+    digest: 053d09cfec3c200c6c57f94f78555f62c16c655e33a47bb0716f45fb8c7793b9
+    name: operator
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/operator-0.5.1/operator-0.5.1.tgz
+    version: 0.5.1
   - apiVersion: v2
     appVersion: 0.5.0
     created: "2026-03-16T23:41:59.499933793Z"
@@ -113,4 +143,4 @@ entries:
     urls:
     - https://github.com/playm8s/helm/releases/download/operator-0.1.57/operator-0.1.57.tgz
     version: 0.1.57
-generated: "2026-03-16T23:41:59.499975972Z"
+generated: "2026-03-16T23:43:03.04367975Z"
