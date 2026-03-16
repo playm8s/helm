@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   crds:
   - apiVersion: v2
+    appVersion: 0.5.2
+    created: "2026-03-16T23:45:32.57012123Z"
+    description: The PlayM8s CRDs
+    digest: 3aae40c1fff82d3370371e08ec4f3f85dc65e77e740b017932ffe86b01fe469b
+    name: crds
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/crds-0.5.2/crds-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
     appVersion: 0.5.1
     created: "2026-03-16T23:43:02.777598302Z"
     description: The PlayM8s CRDs
@@ -32,6 +42,16 @@ entries:
     - https://github.com/playm8s/helm/releases/download/crds-0.0.4/crds-0.0.4.tgz
     version: 0.0.4
   gameserver-csgo:
+  - apiVersion: v2
+    appVersion: 0.5.2
+    created: "2026-03-16T23:45:32.699102199Z"
+    description: An example deployment of a CS:GO Server
+    digest: 47e1962444b20b1b02365f73ffe72dc5c53e0b02585b82ca4b99380e0b70c1a3
+    name: gameserver-csgo
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.5.2/gameserver-csgo-0.5.2.tgz
+    version: 0.5.2
   - apiVersion: v2
     appVersion: 0.5.1
     created: "2026-03-16T23:43:02.910789849Z"
@@ -83,6 +103,16 @@ entries:
     - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.0.1/gameserver-csgo-0.0.1.tgz
     version: 0.0.1
   operator:
+  - apiVersion: v2
+    appVersion: 0.5.2
+    created: "2026-03-16T23:45:32.830375646Z"
+    description: The PlayM8s Operator
+    digest: 2d814d94d2a25e987c0e011a635ccd9775ba2131150f79ac4da0f3de90be4cad
+    name: operator
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/operator-0.5.2/operator-0.5.2.tgz
+    version: 0.5.2
   - apiVersion: v2
     appVersion: 0.5.1
     created: "2026-03-16T23:43:03.043610771Z"
@@ -143,4 +173,4 @@ entries:
     urls:
     - https://github.com/playm8s/helm/releases/download/operator-0.1.57/operator-0.1.57.tgz
     version: 0.1.57
-generated: "2026-03-16T23:43:03.04367975Z"
+generated: "2026-03-16T23:45:32.830446167Z"
