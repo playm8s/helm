@@ -1,6 +1,6 @@
 {
   "name": "playm8s-helm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "the playm8s helm charts",
   "keywords": [],
   "engines": {

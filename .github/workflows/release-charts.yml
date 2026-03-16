@@ -1,51 +1,49 @@
-name: Release Charts
+name: Publish Charts
 
 on:
   push:
-    branches:
-      - gh-pages
+    tags:
+      - '*'
+      - '!*-build'
     paths:
       - 'charts/**'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  packages: write
-  deployments: write
-  pages: write
-
 concurrency:
-  group: playm8s-helm
+  group: eeveebot-helm
   cancel-in-progress: false
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
-  build:
+  release:
+    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
+    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
-          token: "${{ secrets.GH_PAT }}"
-          ref: gh-pages
-          clean: true
           fetch-depth: 0
-          fetch-tags: true
-          set-safe-directory: true
 
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+      - name: Helm Deps
+        run: |
+          helm repo add pm8s https://helm.pm8s.io/ || true
+          helm repo update || true
+          helm search repo pm8s || true
+          # for dir in $(ls -d charts/*); do
+          #   helm dependency update $dir;
+          # done
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
-          charts_dir: charts
           mark_as_latest: true
-          pages_branch: gh-pages
+          skip_existing: true
         env:
-          CR_TOKEN: "${{ secrets.GH_PAT }}"
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -2,8 +2,8 @@ name: Build Charts
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*-build'
     paths:
       - 'src/**'
       - 'versions.yaml'
@@ -15,7 +15,7 @@ permissions:
   packages: write
 
 concurrency:
-  group: playm8s-helm
+  group: pm8s-helm
   cancel-in-progress: false
 
 defaults:
@@ -56,4 +56,4 @@ jobs:
         run: |
           curl -sSL https://github.com/arttor/helmify/releases/download/v0.4.19/helmify_Linux_x86_64.tar.gz \
             | sudo tar -xzv -C /usr/bin helmify
-          make ci
+          bash ci.sh
