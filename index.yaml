@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   crds:
   - apiVersion: v2
+    appVersion: 0.5.4
+    created: "2026-03-16T23:48:51.143463135Z"
+    description: The PlayM8s CRDs
+    digest: b281f258e217c05759cdf2dddbd3b56e81f118b7d98f66f0e2527c569128d918
+    name: crds
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/crds-0.5.4/crds-0.5.4.tgz
+    version: 0.5.4
+  - apiVersion: v2
     appVersion: 0.5.3
     created: "2026-03-16T23:47:27.62601552Z"
     description: The PlayM8s CRDs
@@ -52,6 +62,16 @@ entries:
     - https://github.com/playm8s/helm/releases/download/crds-0.0.4/crds-0.0.4.tgz
     version: 0.0.4
   gameserver-csgo:
+  - apiVersion: v2
+    appVersion: 0.5.4
+    created: "2026-03-16T23:48:51.291416234Z"
+    description: An example deployment of a CS:GO Server
+    digest: b62eca2a19a17f2a5657f4c3b209eeffca49e15c04f66c094748c01185449bf0
+    name: gameserver-csgo
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.5.4/gameserver-csgo-0.5.4.tgz
+    version: 0.5.4
   - apiVersion: v2
     appVersion: 0.5.3
     created: "2026-03-16T23:47:27.809678236Z"
@@ -123,6 +143,16 @@ entries:
     - https://github.com/playm8s/helm/releases/download/gameserver-csgo-0.0.1/gameserver-csgo-0.0.1.tgz
     version: 0.0.1
   operator:
+  - apiVersion: v2
+    appVersion: 0.5.4
+    created: "2026-03-16T23:48:51.402833945Z"
+    description: The PlayM8s Operator
+    digest: a7319a52a7b56eb73b53433b888e879725f3d469c3114563e8866a2455ce16a6
+    name: operator
+    type: application
+    urls:
+    - https://github.com/playm8s/helm/releases/download/operator-0.5.4/operator-0.5.4.tgz
+    version: 0.5.4
   - apiVersion: v2
     appVersion: 0.5.3
     created: "2026-03-16T23:47:28.000044914Z"
@@ -203,4 +233,4 @@ entries:
     urls:
     - https://github.com/playm8s/helm/releases/download/operator-0.1.57/operator-0.1.57.tgz
     version: 0.1.57
-generated: "2026-03-16T23:47:28.000142517Z"
+generated: "2026-03-16T23:48:51.402947969Z"
