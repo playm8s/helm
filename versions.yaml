@@ -1,15 +1,15 @@
 ---
 operator:
   description: The PlayM8s Operator
-  chart: 0.5.0
-  application: 0.5.0
+  chart: 0.5.1
+  application: 0.5.1
 
 crds:
   description: The PlayM8s CRDs
-  chart: 0.5.0
-  application: 0.5.0
+  chart: 0.5.1
+  application: 0.5.1
 
 gameserver-csgo:
   description: An example deployment of a CS:GO Server
-  chart: 0.5.0
-  application: 0.5.0
+  chart: 0.5.1
+  application: 0.5.1
