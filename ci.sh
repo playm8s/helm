@@ -38,7 +38,7 @@ function main() {
   # generated charts
   echo "Run typescript build"
   if [[ "$IS_GITHUB_CI" == true ]]; then
-    npm ci
+    npm ci --include=dev
   else
     echo "Skipping npm ci in local environment"
   fi
