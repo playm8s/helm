@@ -1,6 +1,6 @@
 {
   "name": "playm8s-helm",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "the playm8s helm charts",
   "keywords": [],
   "engines": {
@@ -14,6 +14,7 @@
   "dependencies": {
     "@playm8s/crds": "^0.4.86",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
     "cdk8s": "^2.70.51",
     "cdk8s-plus-33": "^2.4.38",
     "constructs": "^10.5.1",
