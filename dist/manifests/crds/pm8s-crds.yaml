@@ -1,0 +1,102 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pm8s-crd-job-role
+  namespace: pm8s-system
+rules:
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pm8s-crd-job-service-account
+  namespace: pm8s-system
+automountServiceAccountToken: false
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pm8s-crd-job-rolebinding
+  namespace: pm8s-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pm8s-crd-job-role
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: pm8s-crd-job-service-account
+    namespace: pm8s-system
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    pm8s.io/crds: "true"
+  name: pm8s-crd-job
+  namespace: pm8s-system
+spec:
+  template:
+    metadata:
+      labels:
+        pm8s.io/crds: "true"
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - env:
+            - name: KUBE_IN_CLUSTER_CONFIG
+              value: "true"
+          image: ghcr.io/playm8s/crds:latest
+          imagePullPolicy: Always
+          name: main
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2048Mi
+            requests:
+              cpu: 1000m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Never
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      serviceAccountName: pm8s-crd-job-service-account
+      setHostnameAsFQDN: false
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
+  ttlSecondsAfterFinished: 600
+  selector: {}

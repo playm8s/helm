@@ -1,0 +1,159 @@
+# AGENTS.md
+
+This document provides essential information for agentic coding agents working in this repository. It covers build/lint/test commands, code style guidelines, and other important conventions.
+
+## Repository Overview
+
+This is a Helm chart repository for PlayM8s, a gaming platform that runs on Kubernetes. The repository contains:
+
+1. Generated Helm charts (crds, operator) - created from TypeScript CDK8s code
+2. Handwritten Helm charts (gameserver-csgo) - manually maintained templates
+3. CI/CD automation scripts for building and publishing charts
+
+## Build Commands
+
+### Full Build Process
+```bash
+# Clean previous builds
+rm -rf charts/* dist/*
+
+# Install dependencies
+npm ci
+
+# Compile TypeScript files
+npx tsc
+
+# Generate charts from TypeScript CDK8s code
+# For generated charts (crds, operator):
+cd dist && node "playm8s-${CHART}.mjs" && helmify -vv --original-name -f "manifests/${CHART}" "${CHART}"
+
+# Copy handwritten charts
+# For handwritten charts (gameserver-csgo):
+cp -R src/charts/"${CHART}"/* charts/"${CHART}"/
+
+# Update chart metadata
+yq e -i ".description = \"${DESCRIPTION}\"" charts/"${CHART}"/Chart.yaml
+yq e -i ".version = \"${CHART_VERSION}\"" charts/"${CHART}"/Chart.yaml
+yq e -i ".appVersion = \"${APP_VERSION}\"" charts/"${CHART}"/Chart.yaml
+```
+
+## Linting Commands
+
+### TypeScript lint for TypeScript files
+```bash
+# Lint all TypeScript files
+npx eslint .
+
+# Lint specific file
+npx eslint src/crds.mts
+
+# Auto-fix lint issues
+npx eslint . --fix
+```
+
+### YAML Chart Linting
+```bash
+# Lint a specific chart
+helm lint charts/crds
+helm lint charts/operator
+helm lint charts/gameserver-csgo
+```
+
+## Test Commands
+
+### Running Tests
+Note: This repository primarily contains Helm charts and CDK8s TypeScript code. Testing is mainly done through:
+1. Linting (as shown above)
+2. Manual validation of generated manifests
+3. Integration testing in Kubernetes environments
+
+```bash
+# Validate Helm templates render correctly
+helm template charts/crds --debug
+helm template charts/operator --debug
+helm template charts/gameserver-csgo --debug
+
+# Dry-run installation
+helm install --dry-run --debug pm8s-crds charts/crds
+helm install --dry-run --debug pm8s-operator charts/operator
+helm install --dry-run --debug pm8s-gameserver-csgo charts/gameserver-csgo
+```
+
+### Running a Single Test
+Since this is primarily a Helm chart repository, "single tests" would typically be validating a specific chart:
+```bash
+# Validate a single chart
+helm lint charts/gameserver-csgo && helm template charts/gameserver-csgo --debug
+
+# Validate a specific template in a chart
+helm template charts/gameserver-csgo --show-only templates/deployment.yaml
+```
+
+## Code Style Guidelines
+
+### TypeScript (CDK8s) Files
+
+#### Imports
+- Use ES6 import syntax
+- Import external libraries first, then internal modules
+- Group related imports together with blank lines between groups
+- Use specific imports rather than importing entire modules when possible
+
+#### Formatting
+- Use 2-space indentation (no tabs)
+- Always use semicolons at the end of statements
+- Use single quotes for strings except when containing single quotes
+- Place opening braces on the same line as the statement
+- Place closing braces on their own line
+
+#### Types
+- Prefer explicit type annotations for function parameters and return types
+- Use interfaces for object shapes rather than types when possible
+- Use const assertions for literal types when appropriate
+- Avoid using `any` type unless absolutely necessary
+
+#### Naming Conventions
+- Use camelCase for variables and functions
+- Use PascalCase for classes, interfaces, and types
+- Use UPPER_SNAKE_CASE for constants
+- Use descriptive names that clearly indicate purpose
+
+#### Error Handling
+- Always handle Promise rejections with `.catch()` or try/catch
+- Use specific error types rather than generic Error when possible
+- Log errors with appropriate context for debugging
+
+### Helm Chart Files
+
+#### YAML Formatting
+- Use 2-space indentation (no tabs)
+- Use consistent spacing around colons in mappings
+- Quote string values that could be interpreted as booleans or numbers
+- Use `---` as document separator between YAML documents
+
+#### Template Files
+- Use hyphens (-) to separate words in template names
+- Follow Helm best practices for helper templates
+- Use appropriate scoping with `$` when accessing values in nested contexts
+- Include appropriate labels and annotations for Kubernetes resources
+
+#### Values Files
+- Organize values logically with comments explaining each section
+- Use descriptive key names that clearly indicate purpose
+- Provide default values for all configurable options
+- Use nested structures for related configuration options
+
+## Repository Structure
+
+- `src/` - Source files (TypeScript CDK8s code and handwritten Helm charts)
+- `dist/` - Compiled TypeScript output
+- `charts/` - Generated Helm charts (created during build process)
+- `manifests/` - Kubernetes manifests generated by CDK8s
+- `ci.sh` - CI/CD automation script. ONLY FOR USE BY CI/CD.
+
+## Additional Notes
+
+- This repository uses CDK8s to generate Kubernetes manifests from TypeScript code
+- Helm charts are either generated from CDK8s code (crds, operator) or manually maintained (gameserver-csgo)
+- All charts are published to the Helm repository
+- The CI/CD pipeline automatically builds and publishes charts on each commit to main

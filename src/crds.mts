@@ -44,7 +44,7 @@ export class Playm8sCrdJob extends cdk8s.Chart {
 
     roleBinding.addSubjects(serviceAccount);
 
-    const crdJob = new cdk8splus.Job(this, 'crd-job', {
+    new cdk8splus.Job(this, 'crd-job', {
       metadata: {
         labels: {
           'pm8s.io/crds': 'true',

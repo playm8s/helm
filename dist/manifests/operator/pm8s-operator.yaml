@@ -1,0 +1,871 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    pm8s.io/operator: "true"
+  name: pm8s-operator-role
+  namespace: pm8s-system
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - batch
+    resources:
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resources:
+      - replicasets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resources:
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - pm8s.io
+    resources:
+      - gameservers
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - pm8s.io
+    resources:
+      - gameserverbases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - pm8s.io
+    resources:
+      - gameserveroverlays
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - cronjobs
+    verbs:
+      - watch
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - watch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - replicasets
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - statefulsets
+    verbs:
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - watch
+  - apiGroups:
+      - pm8s.io
+    resources:
+      - gameservers
+    verbs:
+      - watch
+  - apiGroups:
+      - pm8s.io
+    resources:
+      - gameserverbases
+    verbs:
+      - watch
+  - apiGroups:
+      - pm8s.io
+    resources:
+      - gameserveroverlays
+    verbs:
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - ingressclasses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - volumeattachments
+    verbs:
+      - get
+      - list
+      - watch
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    pm8s.io/operator: "true"
+  name: pm8s-operator-cluster-role
+  namespace: pm8s-system
+rules:
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - batch
+    resourceNames: []
+    resources:
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apiextensions.k8s.io
+    resourceNames: []
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - daemonsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - batch
+    resourceNames: []
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - coordination.k8s.io
+    resourceNames: []
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - replicasets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - networking.k8s.io
+    resourceNames: []
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - pm8s.io
+    resourceNames: []
+    resources:
+      - gameservers
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - pm8s.io
+    resourceNames: []
+    resources:
+      - gameserverbases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - pm8s.io
+    resourceNames: []
+    resources:
+      - gameserveroverlays
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - deletecollection
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - configmaps
+    verbs:
+      - watch
+  - apiGroups:
+      - batch
+    resourceNames: []
+    resources:
+      - cronjobs
+    verbs:
+      - watch
+  - apiGroups:
+      - apiextensions.k8s.io
+    resourceNames: []
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - daemonsets
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - deployments
+    verbs:
+      - watch
+  - apiGroups:
+      - batch
+    resourceNames: []
+    resources:
+      - jobs
+    verbs:
+      - watch
+  - apiGroups:
+      - coordination.k8s.io
+    resourceNames: []
+    resources:
+      - leases
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - pods
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - replicasets
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - secrets
+    verbs:
+      - watch
+  - apiGroups:
+      - ""
+    resourceNames: []
+    resources:
+      - services
+    verbs:
+      - watch
+  - apiGroups:
+      - apps
+    resourceNames: []
+    resources:
+      - statefulsets
+    verbs:
+      - watch
+  - apiGroups:
+      - networking.k8s.io
+    resourceNames: []
+    resources:
+      - ingresses
+    verbs:
+      - watch
+  - apiGroups:
+      - pm8s.io
+    resourceNames: []
+    resources:
+      - gameservers
+    verbs:
+      - watch
+  - apiGroups:
+      - pm8s.io
+    resourceNames: []
+    resources:
+      - gameserverbases
+    verbs:
+      - watch
+  - apiGroups:
+      - pm8s.io
+    resourceNames: []
+    resources:
+      - gameserveroverlays
+    verbs:
+      - watch
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    pm8s.io/operator: "true"
+  name: pm8s-operator-service-account
+  namespace: pm8s-system
+automountServiceAccountToken: false
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    pm8s.io/operator: "true"
+  name: pm8s-operator-role-binding
+  namespace: pm8s-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pm8s-operator-role
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: pm8s-operator-service-account
+    namespace: pm8s-system
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    pm8s.io/operator: "true"
+  name: pm8s-operator-cluster-role-binding
+  namespace: pm8s-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pm8s-operator-cluster-role
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: pm8s-operator-service-account
+    namespace: pm8s-system
+spec:
+  selector: {}
+  template:
+    metadata:
+      labels: null
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    pm8s.io/operator: "true"
+  name: pm8s-operator
+  namespace: pm8s-system
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      pm8s.io/operator: "true"
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        pm8s.io/operator: "true"
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - image: ghcr.io/playm8s/operator:latest
+          imagePullPolicy: Always
+          name: main
+          ports:
+            - containerPort: 9000
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2048Mi
+            requests:
+              cpu: 1000m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      serviceAccountName: pm8s-operator-service-account
+      setHostnameAsFQDN: false
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pm8s-operator-service
+  namespace: pm8s-system
+spec:
+  externalIPs: []
+  ports:
+    - port: 9000
+      targetPort: 9000
+  selector:
+    pm8s.io/operator: "true"
+  type: ClusterIP
+  template:
+    metadata:
+      labels: null
