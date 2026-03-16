@@ -1,6 +1,6 @@
 {
   "name": "playm8s-helm",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "the playm8s helm charts",
   "keywords": [],
   "engines": {
@@ -12,11 +12,11 @@
     "update-libraries": "npm install --save @playm8s/crds@latest"
   },
   "dependencies": {
-    "@playm8s/crds": "^0.4.85",
-    "@typescript-eslint/eslint-plugin": "^8.57.0",
-    "cdk8s": "^2.70.37",
-    "cdk8s-plus-33": "^2.4.14",
-    "constructs": "^10.4.5",
+    "@playm8s/crds": "^0.4.86",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "cdk8s": "^2.70.51",
+    "cdk8s-plus-33": "^2.4.38",
+    "constructs": "^10.5.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
