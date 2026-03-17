@@ -19,6 +19,28 @@ rules:
   - delete
   - deletecollection
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pm8s-crd-job-cluster-role
+  labels:
+  {{- include "crds.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resourceNames: []
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+  - deletecollection
+---
 {{ if .Values.serviceAccount.create }}
 apiVersion: v1
 kind: ServiceAccount
@@ -43,6 +65,21 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: pm8s-crd-job-role
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "crds.serviceAccountName" . }}'
+  namespace: '{{ .Release.Namespace }}'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pm8s-crd-job-cluster-rolebinding
+  labels:
+  {{- include "crds.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pm8s-crd-job-cluster-role
 subjects:
 - kind: ServiceAccount
   name: '{{ include "crds.serviceAccountName" . }}'

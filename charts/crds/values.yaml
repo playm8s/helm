@@ -5,7 +5,9 @@ pm8SCrdJob:
       allowPrivilegeEscalation: false
       privileged: false
       readOnlyRootFilesystem: true
+      runAsGroup: 1000
       runAsNonRoot: true
+      runAsUser: 1000
     env:
       kubeInClusterConfig: "true"
     image:
