@@ -6,6 +6,10 @@ pm8SOperator:
       privileged: false
       readOnlyRootFilesystem: true
       runAsNonRoot: true
+    env:
+      httpApiPort: "9000"
+      kubeInClusterConfig: "true"
+      watchOtherNamespaces: "false"
     image:
       repository: ghcr.io/playm8s/operator
       tag: latest

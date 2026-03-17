@@ -803,6 +803,16 @@ spec:
       automountServiceAccountToken: true
       containers:
       - env:
+        - name: KUBE_IN_CLUSTER_CONFIG
+          value: {{ quote .Values.pm8SOperator.main.env.kubeInClusterConfig }}
+        - name: WATCH_OTHER_NAMESPACES
+          value: {{ quote .Values.pm8SOperator.main.env.watchOtherNamespaces }}
+        - name: HTTP_API_PORT
+          value: {{ quote .Values.pm8SOperator.main.env.httpApiPort }}
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
         image: {{ .Values.pm8SOperator.main.image.repository }}:{{ .Values.pm8SOperator.main.image.tag
