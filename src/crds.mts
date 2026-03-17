@@ -22,9 +22,16 @@ export class Playm8sCrdJob extends cdk8s.Chart {
 
     const crdJobRole = new cdk8splus.Role(this, 'crd-job-role');
 
+    const crdJobClusterRole = new cdk8splus.ClusterRole(this, 'crd-job-cluster-role');
+
     crdJobRole.allowReadWrite(
       cdk8splus.ApiResource.CUSTOM_RESOURCE_DEFINITIONS
     );
+
+    crdJobClusterRole.allowReadWrite(
+      cdk8splus.ApiResource.CUSTOM_RESOURCE_DEFINITIONS
+    );
+
     const serviceAccount = new cdk8splus.ServiceAccount(
       this,
       'crd-job-service-account'
@@ -42,7 +49,19 @@ export class Playm8sCrdJob extends cdk8s.Chart {
       }
     );
 
+    const clusterRoleBinding = new cdk8splus.ClusterRoleBinding(
+      this,
+      'crd-job-cluster-role-binding',
+      {
+        metadata: {
+          name: 'pm8s-crd-job-cluster-rolebinding',
+        },
+        role: crdJobClusterRole,
+      }
+    );
+
     roleBinding.addSubjects(serviceAccount);
+    clusterRoleBinding.addSubjects(serviceAccount);
 
     new cdk8splus.Job(this, 'crd-job', {
       metadata: {
@@ -58,6 +77,10 @@ export class Playm8sCrdJob extends cdk8s.Chart {
           image: image,
           envVariables: {
             KUBE_IN_CLUSTER_CONFIG: cdk8splus.EnvValue.fromValue('true'),
+          },
+          securityContext: {
+            user: 1000,
+            group: 1000,
           },
         },
       ],

@@ -200,6 +200,12 @@ export class Playm8sOperator extends cdk8s.Chart {
               number: httpApiPort,
             },
           ],
+          envVariables: {
+            KUBE_IN_CLUSTER_CONFIG: cdk8splus.EnvValue.fromValue('true'),
+            WATCH_OTHER_NAMESPACES: cdk8splus.EnvValue.fromValue('false'),
+            HTTP_API_PORT: cdk8splus.EnvValue.fromValue(httpApiPort.toString()),
+            NAMESPACE: cdk8splus.EnvValue.fromFieldRef(cdk8splus.EnvFieldPaths.POD_NAMESPACE),
+          },
         },
       ],
       replicas: 1,
