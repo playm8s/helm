@@ -1,7 +1,4 @@
 ---
 spec:
   game: csgo
-  gameserverBase: ""
-  gameserverOverlays: []
-  storageClassName: ""
-  storageStrategy: raw
+  gameserverLayers: []
