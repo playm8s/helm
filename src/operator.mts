@@ -63,8 +63,7 @@ export class Playm8sOperator extends cdk8s.Chart {
       cdk8splus.ApiResource.STATEFUL_SETS,
       cdk8splus.ApiResource.INGRESSES,
       new pm8s.Gameserver.ApiResource,
-      new pm8s.GameserverBase.ApiResource,
-      new pm8s.GameserverOverlay.ApiResource,
+      new pm8s.GameserverLayer.ApiResource,
     );
 
     operatorRole.allowWatch(
@@ -83,8 +82,7 @@ export class Playm8sOperator extends cdk8s.Chart {
       cdk8splus.ApiResource.STATEFUL_SETS,
       cdk8splus.ApiResource.INGRESSES,
       new pm8s.Gameserver.ApiResource,
-      new pm8s.GameserverBase.ApiResource,
-      new pm8s.GameserverOverlay.ApiResource,
+      new pm8s.GameserverLayer.ApiResource,
     );
 
     operatorClusterRole.allowReadWrite(
@@ -103,8 +101,7 @@ export class Playm8sOperator extends cdk8s.Chart {
       cdk8splus.ApiResource.STATEFUL_SETS,
       cdk8splus.ApiResource.INGRESSES,
       new pm8s.Gameserver.ApiResource,
-      new pm8s.GameserverBase.ApiResource,
-      new pm8s.GameserverOverlay.ApiResource,
+      new pm8s.GameserverLayer.ApiResource,
     );
 
     operatorClusterRole.allowWatch(
@@ -123,8 +120,7 @@ export class Playm8sOperator extends cdk8s.Chart {
       cdk8splus.ApiResource.STATEFUL_SETS,
       cdk8splus.ApiResource.INGRESSES,
       new pm8s.Gameserver.ApiResource,
-      new pm8s.GameserverBase.ApiResource,
-      new pm8s.GameserverOverlay.ApiResource,
+      new pm8s.GameserverLayer.ApiResource,
     );
 
     operatorRole.allowRead(
