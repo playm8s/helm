@@ -204,20 +204,7 @@ rules:
 - apiGroups:
   - pm8s.io
   resources:
-  - gameserverbases
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-  - deletecollection
-- apiGroups:
-  - pm8s.io
-  resources:
-  - gameserveroverlays
+  - gameserverlayers
   verbs:
   - get
   - list
@@ -320,13 +307,7 @@ rules:
 - apiGroups:
   - pm8s.io
   resources:
-  - gameserverbases
-  verbs:
-  - watch
-- apiGroups:
-  - pm8s.io
-  resources:
-  - gameserveroverlays
+  - gameserverlayers
   verbs:
   - watch
 - apiGroups:
@@ -584,21 +565,7 @@ rules:
   - pm8s.io
   resourceNames: []
   resources:
-  - gameserverbases
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-  - deletecollection
-- apiGroups:
-  - pm8s.io
-  resourceNames: []
-  resources:
-  - gameserveroverlays
+  - gameserverlayers
   verbs:
   - get
   - list
@@ -717,14 +684,7 @@ rules:
   - pm8s.io
   resourceNames: []
   resources:
-  - gameserverbases
-  verbs:
-  - watch
-- apiGroups:
-  - pm8s.io
-  resourceNames: []
-  resources:
-  - gameserveroverlays
+  - gameserverlayers
   verbs:
   - watch
 ---
